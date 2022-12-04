@@ -34,9 +34,11 @@ export function TableRows({children}) {
   )
 }
 
-export function Table({children}) {
+export function Table({children, ...props}) {
+  // merge className property
+  props.className = props.className + ' bg-white w-full p-4  shadow-md'
   return (
-    <table className="bg-white w-full p-4  shadow-md">
+    <table {...props}>
       {Children.map(children, child => 
         <>{child}</>
       )}
