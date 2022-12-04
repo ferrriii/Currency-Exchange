@@ -19,16 +19,6 @@ export default function Menu({duration, onDurationChange, baseCurrency, symbol})
       const res = await fetch(`https://api.exchangerate.host/timeseries?start_date=${dateString(startDate)}&end_date=${dateString(today)}&base=${baseCurrency}&symbols=${symbol}`)
       const data = await res.json()
       const HistoryData = Object.keys(data.rates).map(date => ({date, rate: data.rates[date][symbol]}))
-      function compare( a, b ) {
-        if ( b.date < a.date ){
-          return -1;
-        }
-        if ( b.date > a.date ){
-          return 1;
-        }
-        return 0;
-      }
-      HistoryData.sort(compare)
       console.log(data, data.rates, HistoryData)
       setExchangeRateHistory(HistoryData)
     } catch (e) {
@@ -49,7 +39,7 @@ export default function Menu({duration, onDurationChange, baseCurrency, symbol})
       <h2 className="text-2xl font-bold">Exchange History</h2>
       <div className="flex flex-col mt-5">
         <ExchangeRateHistoryControl duration={duration} onDurationChange={onDurationChange} historicalView={historicalView} setHistoricalView={setHistoricalView} />
-        <ExchangeRateHistoryResults exchangeRateHistory={exchangeRateHistory} error={error}/>
+        <ExchangeRateHistoryResults exchangeRateHistory={exchangeRateHistory} viewType={historicalView} error={error}/>
       </div>
     </div>
   )
