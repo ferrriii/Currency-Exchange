@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ExchangeResults from '../components/exchange-result.js'
 import ExchangeHistory from '../components/exchange-rate-history.js'
 import ExchangeForm from '../components/exchange-form.js'
+import {addHistoryRecord} from '../modules/storage.js'
 
 export function Converter() {
   const [amount, setAmount] = useState("");
@@ -23,6 +24,7 @@ export function Converter() {
       const res = await fetch(`https://api.exchangerate.host/convert?from=${fromCurrency}&to=${toCurrency}`)
       const data = await res.json()
       setExchangeRate(data.info.rate)
+      addHistoryRecord({amount, fromCurrency, toCurrency})
       console.log(data, data.info.rate)  
     } catch (e) {
       console.log('error', e)
