@@ -22,11 +22,13 @@ export function TableColumns({cols}) {
   )
 }
 
-export function TableRows({children}) {
+export function TableRows({children, ...props}) {
+  // merge className property
+  props.className = props.className + ' border-b-2 border-neutral-100'
   return (
     <tbody>
     {Children.map(children, child =>
-      <tr className="border-b-2 border-neutral-100">
+      <tr {...props}>
       {child}
       </tr>
     )}
