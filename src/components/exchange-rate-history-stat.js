@@ -9,9 +9,6 @@ export default function ExchangeRateHistoryStat({data}) {
     return total
   }, {sum:0, min:Infinity, max:0})
 
-  const records = data.map(({date,rate}) => 
-    <TableColumns cols={[date, rate]} key={date} />
-  )
   return (
     <Table>
       <TableHead headings={['Statistics', '']}/>
