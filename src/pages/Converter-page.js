@@ -23,7 +23,9 @@ export function Converter() {
     setLoading(true)
     try {
       const res = await fetch(`https://api.exchangerate.host/convert?from=${fromCurrency}&to=${toCurrency}`)
+      if (!res.ok) throw new Error(res.status);
       const data = await res.json()
+      if (!data.info?.rate) throw new Error('Exchange rate is null');
       setExchangeRate(data.info.rate)
       addHistoryRecord({amount, fromCurrency, toCurrency})
     } catch (e) {

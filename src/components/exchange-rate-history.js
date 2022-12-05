@@ -13,12 +13,15 @@ export default function Menu({duration, onDurationChange, baseCurrency, symbol})
   const [error, setError] = useState('')
 
   const getExchangeRateHistory = async function() {
+    setError('')
     try {
       const today = new Date()
       const startDate =  new Date(today - (1000*60*60*24*duration))
       const res = await fetch(`https://api.exchangerate.host/timeseries?start_date=${dateString(startDate)}&end_date=${dateString(today)}&base=${baseCurrency}&symbols=${symbol}`)
+      if (!res.ok) throw new Error(res.status);
       const data = await res.json()
       const HistoryData = Object.keys(data.rates).map(date => ({date, rate: data.rates[date][symbol]}))
+      if (HistoryData.length === 0 || !HistoryData[0].rate) throw new Error('Exchange rate is null');
       setExchangeRateHistory(HistoryData)
     } catch (e) {
       console.log('error', e)

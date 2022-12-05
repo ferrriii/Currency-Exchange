@@ -16,7 +16,7 @@ export function TableColumns({cols}) {
   return (
     <>
     {cols.map(column => 
-      <td className="p-3" key={column.key || column}>{column}</td>
+      <td className="p-3" key={column?.key || column}>{column}</td>
     )}
     </>
   )
