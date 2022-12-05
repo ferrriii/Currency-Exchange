@@ -8,6 +8,7 @@ export function Router() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Converter />} />
+        <Route path=":from/:to/:amount" element={<Converter />} />
         <Route path="history" element={<History />} />
       </Route>
     </Routes>
