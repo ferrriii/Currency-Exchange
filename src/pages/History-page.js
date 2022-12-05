@@ -3,11 +3,10 @@ import {Table, TableHead, TableColumns, TableRows } from '../components/table.js
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import ViewIcon from '@mui/icons-material/RemoveRedEye';
 import {loadHistoryRecords, deleteHistoryRecord} from '../modules/storage.js'
+import { useNavigate  } from "react-router-dom";
 
 export function History() {
-  // const records = data.map(({date,rate}) => 
-  //   <TableColumns cols={[date, rate]} key={date} />
-  // )
+  const navigate  = useNavigate()
 
   const [historyRecords, setHistoryRecords] = useState([])
 
@@ -22,10 +21,14 @@ export function History() {
     setHistoryRecords(loadHistoryRecords())
   }
 
+  const viewRecord = ({fromCurrency, toCurrency, amount}) => {
+    navigate(`/${fromCurrency}/${toCurrency}/${amount}`)
+  }
+
   const createAction = (record) => {
     if (!record) return []
-    let deleteAction = <label className="text-warn invisible group-hover:visible" key={'del-' + record.date} onClick={() => deleteRecord(record.date)}><DeleteIcon color="warn"/> Delete from history</label>
-    let viewAction = <label className="text-primary invisible group-hover:visible" key={'view-' + record.date}><ViewIcon color="primary"/> View</label>
+    let deleteAction = <label className="text-warn cursor-pointer invisible group-hover:visible" key={'del-' + record.date} onClick={() => deleteRecord(record.date)}><DeleteIcon color="warn"/> Delete from history</label>
+    let viewAction = <label className="text-primary cursor-pointer invisible group-hover:visible" key={'view-' + record.date} onClick={() => viewRecord(record)}><ViewIcon color="primary"/> View</label>
     return [viewAction, deleteAction]
   }
 
