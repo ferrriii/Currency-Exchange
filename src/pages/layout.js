@@ -2,7 +2,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Link, Outlet, useLocation  } from "react-router-dom";
 import LoogoIcon from '@mui/icons-material/FindReplace';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function LinkTab(props) {
   return (
@@ -17,6 +17,11 @@ function LinkTab(props) {
 export function Layout(props) {
   const location = useLocation();
   const [value, setValue] = useState( /\/((.+\/.+\/.+)|$)/.test(location.pathname) ? '/' : location.pathname  );
+
+  useEffect(() => {
+    // update the current tab if the location changed
+    setValue(/\/((.+\/.+\/.+)|$)/.test(location.pathname) ? '/' : location.pathname)
+  }, [location])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
