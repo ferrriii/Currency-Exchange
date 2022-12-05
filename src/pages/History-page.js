@@ -18,7 +18,7 @@ export function History() {
 
   const deleteRecord = recordId => {
     deleteHistoryRecord(recordId)
-    setHistoryRecords(loadHistoryRecords())
+    setHistoryRecords([...loadHistoryRecords()])
   }
 
   const viewRecord = ({fromCurrency, toCurrency, amount}) => {
