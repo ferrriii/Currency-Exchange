@@ -9,7 +9,7 @@ function persistHistoryRecords() {
 }
 
 export function addHistoryRecord(record) {
-    records.push({date: Date.now(), ...record})
+    records.unshift({date: Date.now(), ...record})
     persistHistoryRecords()
 }
 
