@@ -1,6 +1,6 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation  } from "react-router-dom";
 import LoogoIcon from '@mui/icons-material/FindReplace';
 import { useState } from 'react';
 
@@ -16,7 +16,7 @@ function LinkTab(props) {
 
 export function Layout(props) {
   const location = useLocation();
-  const [value, setValue] = useState(location.pathname);
+  const [value, setValue] = useState( /\/((.+\/.+\/.+)|$)/.test(location.pathname) ? '/' : location.pathname  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
