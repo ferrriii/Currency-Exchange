@@ -4,10 +4,10 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
-export default function Form({onExchangeCurrency, isLoading}) {
-  const [amount, setAmount] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState("");
+export default function Form({amount: initialAmount, from, to, onExchangeCurrency, isLoading}) {
+  const [amount, setAmount] = useState(initialAmount || '');
+  const [fromCurrency, setFromCurrency] = useState(from || '');
+  const [toCurrency, setToCurrency] = useState(to || '');
 
   const handleSubmit =  async (event) => {
     event.preventDefault();
