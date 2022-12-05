@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExchangeResults from '../components/exchange-result.js'
 import ExchangeHistory from '../components/exchange-rate-history.js'
 import ExchangeForm from '../components/exchange-form.js'
 import {addHistoryRecord} from '../modules/storage.js'
+import { useParams } from 'react-router-dom';
 
 export function Converter() {
-  const [amount, setAmount] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState("");
+  let params = useParams();
+  const [amount, setAmount] = useState(params.amount);
+  const [fromCurrency, setFromCurrency] = useState(params.from);
+  const [toCurrency, setToCurrency] = useState(params.to);
   const [isLoading, setLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [error, setError] = useState('');
@@ -34,11 +36,17 @@ export function Converter() {
     }
   }
 
+  useEffect(() =>{
+    if (amount && fromCurrency && toCurrency) {
+      handleSubmit(amount, fromCurrency, toCurrency)
+    }  
+  }, [])
+
   return (
     <>
       <h1 className="text-5xl font-bold">I want to convert</h1>
 
-      <ExchangeForm isLoading={isLoading} onExchangeCurrency={handleSubmit}/>
+      <ExchangeForm amount={amount} from={fromCurrency} to={toCurrency} isLoading={isLoading} onExchangeCurrency={handleSubmit}/>
 
       <ExchangeResults amount={amount} from={fromCurrency} to={toCurrency} rate={exchangeRate} error={error}/>
 
