@@ -1,6 +1,6 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import LoogoIcon from '@mui/icons-material/FindReplace';
 import { useState } from 'react';
 
@@ -15,8 +15,8 @@ function LinkTab(props) {
 }
 
 export function Layout(props) {
-  console.log(props)
-  const [value, setValue] = useState(0);
+  const location = useLocation();
+  const [value, setValue] = useState(location.pathname);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -35,8 +35,8 @@ export function Layout(props) {
           <Link to="/history" className="py-5 px-6 text-gray">VIEW CONVERSTION HISTORY</Link> */}
 
           <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-            <LinkTab label="CURRENCY CONVERTER" to="/" />
-            <LinkTab label="VIEW CONVERSTION HISTORY" to="/history" />
+            <LinkTab label="CURRENCY CONVERTER" value="/" to="/" />
+            <LinkTab label="VIEW CONVERSTION HISTORY" value="/history" to="/history" />
           </Tabs>
 
           <span className="ml-auto text-primary font-bold flex items-center">LOGOUT</span>
