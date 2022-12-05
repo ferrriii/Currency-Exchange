@@ -43,7 +43,6 @@ export function History() {
     <TableColumns cols={[recordDate(record), recordEvent(record), ...createAction(record)]} key={record.date} />
   )
 
-  console.log('render', historyRecords.length, rows.length)
   return (
     <>
       <h1 className="text-5xl font-bold">Conversion History</h1>

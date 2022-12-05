@@ -20,14 +20,12 @@ export function Converter() {
     setAmount(amount)
     setFromCurrency(fromCurrency)
     setToCurrency(toCurrency)
-    console.log('convert', amount, fromCurrency, toCurrency)
     setLoading(true)
     try {
       const res = await fetch(`https://api.exchangerate.host/convert?from=${fromCurrency}&to=${toCurrency}`)
       const data = await res.json()
       setExchangeRate(data.info.rate)
       addHistoryRecord({amount, fromCurrency, toCurrency})
-      console.log(data, data.info.rate)  
     } catch (e) {
       console.log('error', e)
       setError(e.message || e)
@@ -40,7 +38,7 @@ export function Converter() {
     if (amount && fromCurrency && toCurrency) {
       handleSubmit(amount, fromCurrency, toCurrency)
     }  
-  }, [])
+  }, []) // we just need to run this once, ignore the warning
 
   return (
     <>

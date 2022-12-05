@@ -19,7 +19,6 @@ export default function Menu({duration, onDurationChange, baseCurrency, symbol})
       const res = await fetch(`https://api.exchangerate.host/timeseries?start_date=${dateString(startDate)}&end_date=${dateString(today)}&base=${baseCurrency}&symbols=${symbol}`)
       const data = await res.json()
       const HistoryData = Object.keys(data.rates).map(date => ({date, rate: data.rates[date][symbol]}))
-      console.log(data, data.rates, HistoryData)
       setExchangeRateHistory(HistoryData)
     } catch (e) {
       console.log('error', e)
@@ -30,7 +29,7 @@ export default function Menu({duration, onDurationChange, baseCurrency, symbol})
   useEffect(()=> {
     if (!symbol) return
     getExchangeRateHistory()
-  }, [duration, baseCurrency, symbol])
+  }, [duration, baseCurrency, symbol]) // these states are used in getExchangeRateHistory(), ignore the warning
 
   if (!symbol) return null
 
