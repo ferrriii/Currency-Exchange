@@ -21,12 +21,12 @@ export default function Form({amount: initialAmount, from, to, onExchangeCurrenc
 
   return (
     <form className="flex justify-between my-10" onSubmit={handleSubmit}>
-      <TextField id="standard-basic" label="Amount" variant="standard" value={amount} onChange={(e) => setAmount(e.target.value)}/>
-      <TextField id="standard-basic" label="From" variant="standard" value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value.toUpperCase())}/>
+      <TextField required inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} id="standard-basic" label="Amount" variant="standard" value={amount} onChange={(e) => setAmount(e.target.value)}/>
+      <TextField required id="standard-basic" label="From" variant="standard" value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value.toUpperCase())}/>
       <IconButton aria-label="swap" onClick={swapCurrencies}>
         <CompareArrowsIcon color="primary" />
       </IconButton>
-      <TextField id="standard-basic" label="To" variant="standard" value={toCurrency} onChange={(e) => setToCurrency(e.target.value.toUpperCase())}/>
+      <TextField required id="standard-basic" label="To" variant="standard" value={toCurrency} onChange={(e) => setToCurrency(e.target.value.toUpperCase())}/>
       <Button disabled={isLoading} type="submit" variant="contained">CONVERT</Button>
     </form>    
   )
