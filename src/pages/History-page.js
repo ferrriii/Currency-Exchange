@@ -1,24 +1,15 @@
-import { useState, useEffect } from 'react';
 import {Table, TableHead, TableColumns, TableRows } from '../components/table.js'
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import ViewIcon from '@mui/icons-material/RemoveRedEye';
-import {loadHistoryRecords, deleteHistoryRecord} from '../modules/storage.js'
+import {useLocalHistoryRecords} from '../modules/storage-hook.js'
 import { useNavigate  } from "react-router-dom";
 
 export function History() {
   const navigate  = useNavigate()
-
-  const [historyRecords, setHistoryRecords] = useState([])
-
-  useEffect(()=> {
-    // load history from local storage
-    setHistoryRecords([...loadHistoryRecords()])
-  }, [])
-
+  const {records: historyRecords, deleteHistoryRecord} = useLocalHistoryRecords()
 
   const deleteRecord = recordId => {
     deleteHistoryRecord(recordId)
-    setHistoryRecords([...loadHistoryRecords()])
   }
 
   const viewRecord = ({fromCurrency, toCurrency, amount}) => {

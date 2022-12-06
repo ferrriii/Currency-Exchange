@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ExchangeResults from '../components/exchange-result.js'
 import ExchangeHistory from '../components/exchange-rate-history.js'
 import ExchangeForm from '../components/exchange-form.js'
-import {addHistoryRecord} from '../modules/storage.js'
+import {useLocalHistoryRecords} from '../modules/storage-hook.js'
 import { useParams } from 'react-router-dom';
 
 export function Converter() {
@@ -14,6 +14,7 @@ export function Converter() {
   const [exchangeRate, setExchangeRate] = useState(0);
   const [error, setError] = useState('');
   const [historicalDuration, setHistoricalDuration] = useState(7)
+  const {addHistoryRecord} = useLocalHistoryRecords()
 
   const handleSubmit =  async (amount, fromCurrency, toCurrency) => {
     setError('')
